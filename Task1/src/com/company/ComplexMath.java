@@ -5,7 +5,7 @@ public class ComplexMath {
     }
 
     private static double round(double num) {
-            return Math.round((num) * 10000) / 10000.0d;
+        return Math.round((num) * 10000) / 10000.0d;
     }
 
     public static ComplexNumber add(ComplexNumber cn1, ComplexNumber cn2) {
@@ -20,7 +20,7 @@ public class ComplexMath {
         return new ComplexNumber(realPart, imaginaryPart);
     }
 
-    public static ComplexNumber substract(ComplexNumber cn1) {
+    public static ComplexNumber getReciprocal(ComplexNumber cn1) {
         double realPart = round(-cn1.getRealPart());
         double imaginaryPart = round(-cn1.getImaginaryPart());
         return new ComplexNumber(realPart, imaginaryPart);
@@ -58,6 +58,7 @@ public class ComplexMath {
             double imaginaryPart = round(Math.sqrt(module) * (Math.sin((argument + 2 * Math.PI * i) / 2)));
             results[i] = new ComplexNumber(realPart, imaginaryPart);
         }
+
         return results;
     }
 }

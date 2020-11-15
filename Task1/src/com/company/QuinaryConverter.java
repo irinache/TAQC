@@ -1,15 +1,13 @@
 package com.company;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class QuinaryConverter {
-    private static int base = 5;
+    private int base;
 
-    private QuinaryConverter() {
+    public QuinaryConverter() {
+        base = 5;
     }
 
-    public static String toQuinaryString(int num) {
+    public QuinaryNumber toQuinary(int num) {
         String result = "";
         int remainder;
         while (num > base) {
@@ -18,32 +16,23 @@ public class QuinaryConverter {
             result += remainder;
         }
         result += num;
-        return reverseString(result);
+        QuinaryNumber qn = new QuinaryNumber(reverseString(result));
+        return qn;
     }
 
-    public static int fromQuinaryStringToInt(String qStr) {
-        if (isQuinary(qStr)) {
-            int result = 0;
-            int size = qStr.length();
-            qStr = reverseString(qStr);
-            String[] digits = qStr.split("");
+    public int toInt(QuinaryNumber quinary_number) {
+        int result = 0;
+        int size = quinary_number.toString().length();
+        String reverse = reverseString(quinary_number.toString());
+        String[] digits = reverse.split("");
 
-            for (int i = 0; i < size; i++) {
-                result += Integer.parseInt(digits[i]) * Math.pow(base, i);
-            }
-            return result;
-        } else {
-            return -1;
+        for (int i = 0; i < size; i++) {
+            result += Integer.parseInt(digits[i]) * Math.pow(base, i);
         }
+        return result;
     }
 
-    public static boolean isQuinary(String str) {
-        Pattern pattern = Pattern.compile("^[0-4]+$");
-        Matcher matcher = pattern.matcher(str);
-        return matcher.find();
-    }
-
-    public static String reverseString(String str) {
+    private String reverseString(String str) {
         String result = "";
         char[] array = str.toCharArray();
         for (int i = array.length - 1; i >= 0; i--) {
